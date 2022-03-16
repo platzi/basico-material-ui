@@ -1,12 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "@mui/material";
 
 import Searcher from "./componets/Searcher";
 
+import { getGitHubUser } from './services/users'
+
 const App = () => {
 
   const [inputUser, setInputUser] = useState('octocat');
-  const [userStater, userState] = useState('inputUser');
+  const [userState, setUserState] = useState('inputUser');
+  const [notFound, setNotFound] = useState(false);
+
+  const gettinUser = async (user) => {
+    const userResponse = await getGitHubUser(user)
+
+    if(userState === 'octocat'){
+      localStorage.setItem('octocat', userResponse)
+    }
+
+    if(userResponse.message === 'Not Found'){
+      const { octocat } = localStorage;
+      setInputUser(octocat);
+      setNotFound(true);
+    } else {
+      setUserState(userResponse);
+    }
+
+  };
+
+  console.log(userState);
+
+  useEffect(() =>{
+    gettinUser(inputUser)
+  },
+  [inputUser])
 
   return(
     <Container sx={{
