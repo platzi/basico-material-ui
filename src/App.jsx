@@ -4,6 +4,7 @@ import { Container } from "@mui/material";
 import Searcher from "./componets/Searcher";
 
 import { getGitHubUser } from './services/users'
+import UserCard from "./containers/UserCard";
 
 const App = () => {
 
@@ -47,6 +48,7 @@ const App = () => {
       alignItems: 'center'
     }} >
       <Searcher inputUser={inputUser} setInputUser={setInputUser} />
+      <UserCard userState={userState}/>
     </Container>
   )
 };
