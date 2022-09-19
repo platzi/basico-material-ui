@@ -10,7 +10,7 @@ const App = () => {
 
   const [inputUser, setInputUser] = useState('octocat');
   const [userState, setUserState] = useState('inputUser');
-  const [notFound, setNotFound] = useState(false);
+  const [notFound, setNotFound] = useState(false); //no se usa para nada.
 
   const gettinUser = async (user) => {
     const userResponse = await getGitHubUser(user)
@@ -22,7 +22,8 @@ const App = () => {
     if(userResponse.message === 'Not Found'){
       const { octocat } = localStorage;
       setInputUser(octocat);
-      setNotFound(true);
+      setNotFound(true); //no es necesario
+      getGitHubUser('octocat');
     } else {
       setUserState(userResponse);
     }
